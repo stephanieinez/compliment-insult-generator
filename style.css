@@ -1,0 +1,42 @@
+.container
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 200px;
+}
+
+#compliment
+{
+    font-size:30px;
+    text-align: center;
+    font-family: monospace;
+}
+
+#button
+{
+    font-size: 11px;
+    background-color: transparent;
+    text-align: center;
+    font-family: monospace;
+    color: #000000;
+    padding: 5px 5px 5px 5px;
+    outline: groove;
+    outline-color: #FFDD67;
+}
+
+label
+{
+    font-family: monospace;
+    font-size: 13px;
+}
+
+label > input{
+  visibility: hidden;
+  position: absolute;
+}
+
+label > input:checked + img{
+  transform: scale(1.5,1.5);
+}
