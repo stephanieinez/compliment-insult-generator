@@ -19,46 +19,56 @@ var end = ["human being", "person", "duck", "lady", "warrior", "friend", "angel"
 
 var middle;
 
+var HAPPY = "happy";
+var ANGRY = "angry";
 
-function selectMood()
-{
-  if(document.getElementById("happy").checked){
-    return "happy";
-  }
-  else{
-    return "angry";
-  }
-}
+var App = {
+    setWordIndex: function (array) {
+        return Math.floor(Math.random() * (array.length + 1) - 1);
+    },
+    setMoodArray: function () {
+       return this.setMood() === HAPPY ? middleHappy : middleAngry;
+    },
+    setMood: function() {
+        if(document.getElementById("happy").checked){
+            return HAPPY;
+        }
+        return ANGRY;
+    },
+    buildSentence: function (firstWord, middleWord, finalWord) {
+        return firstWord + " " + middleWord + " " + finalWord;
+    },
+    renderSentence: function (sentence) {
+        document.getElementById("compliment").innerHTML = sentence
+    },
+    setCorrectGrammer: function (word) {
+        if (
+            word.charAt(0) ==  "a" ||
+            word.charAt(0) ==  "e" ||
+            word.charAt(0) ==  "i" ||
+            word.charAt(0) ==  "o" ||
+            word.charAt(0) ==  "u"
+        ) {
+            return true;
+        }
+        return false;
+    },
+    init: function() {
+        var moodArray = this.setMoodArray();
+        var firstWord = start;
+        var middleWord = moodArray[this.setWordIndex(moodArray)];
+        var finalWord = end[this.setWordIndex(end)];
 
-function buildSentence() {
-  if (selectMood() == "happy"){
-    middle = middleHappy;
-  } else {
-    middle = middleAngry;
-  }
-  console.log(middle);
+        if (this.setCorrectGrammer(finalWord)) {
+            firstWord += "n";
+        }
 
-  var a = start;
-  var b = Math.floor(Math.random() * (middle.length + 1) - 1);
-  var c = Math.floor(Math.random() * (end.length + 1) - 1);
-    if (
-      middle[b].charAt(0) ==  "a" ||
-      middle[b].charAt(0) ==  "e" ||
-      middle[b].charAt(0) ==  "i" ||
-      middle[b].charAt(0) ==  "o" ||
-      middle[b].charAt(0) ==  "u"
-    ) {
-      a += "n";
+        var sentence = this.buildSentence(firstWord, middleWord, finalWord);
+        this.renderSentence(sentence);
     }
-    var sentence = a + " " + middle[b] + " " + end[c];
-      console.log(sentence)
-    document.getElementById("compliment").innerHTML = sentence;
-}
+};
 
 window.onload = function(){
-    buildSentence();
-  // document.getElementById("button").onclick = function(){
-  //   buildSentence();
-  // }
-    document.getElementById("button").addEventListener("click", buildSentence);
-  }
+    App.init();
+    document.getElementById("button").addEventListener("click", App.init.bind(App));
+};
