@@ -26,49 +26,44 @@ var App = {
     setWordIndex: function (array) {
         return Math.floor(Math.random() * (array.length + 1) - 1);
     },
+
     setMoodArray: function () {
        return this.setMood() === HAPPY ? middleHappy : middleAngry;
     },
+
     setMood: function() {
-        if(document.getElementById("happy").checked){
-            return HAPPY;
-        }
-        return ANGRY;
+        return document.getElementById("happy").checked ? HAPPY : ANGRY;
     },
+
     buildSentence: function (firstWord, middleWord, finalWord) {
         return firstWord + " " + middleWord + " " + finalWord;
     },
+
     renderSentence: function (sentence) {
         document.getElementById("compliment").innerHTML = sentence
     },
-    setCorrectGrammer: function (word) {
-        if (
-            word.charAt(0) ==  "a" ||
-            word.charAt(0) ==  "e" ||
-            word.charAt(0) ==  "i" ||
-            word.charAt(0) ==  "o" ||
-            word.charAt(0) ==  "u"
-        ) {
-            return true;
-        }
-        return false;
+
+    setCorrectGrammer: function (middleWord, firstWord) {
+      var vowels = ["a", "e", "i", "o", "u"];
+      for (i = 0; i < vowels.length; i++) {
+          if (middleWord.charAt(0) == vowels[i]) {
+             return firstWord + "n";
+          }
+      }
+      return firstWord
     },
-    init: function() {
+
+    start: function() {
         var moodArray = this.setMoodArray();
-        var firstWord = start;
         var middleWord = moodArray[this.setWordIndex(moodArray)];
+        var firstWord = this.setCorrectGrammer(middleWord, start);
         var finalWord = end[this.setWordIndex(end)];
-
-        if (this.setCorrectGrammer(finalWord)) {
-            firstWord += "n";
-        }
-
         var sentence = this.buildSentence(firstWord, middleWord, finalWord);
         this.renderSentence(sentence);
     }
 };
 
 window.onload = function(){
-    App.init();
-    document.getElementById("button").addEventListener("click", App.init.bind(App));
+    App.start();
+    document.getElementById("button").addEventListener("click", App.start.bind(App));
 };
