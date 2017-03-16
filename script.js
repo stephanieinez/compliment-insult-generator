@@ -41,25 +41,22 @@ var App = {
     renderSentence: function (sentence) {
         document.getElementById("compliment").innerHTML = sentence
     },
-    setCorrectGrammer: function (word) {
-        if (
-            word.charAt(0) ==  "a" ||
-            word.charAt(0) ==  "e" ||
-            word.charAt(0) ==  "i" ||
-            word.charAt(0) ==  "o" ||
-            word.charAt(0) ==  "u"
-        ) {
-            return true;
+    setCorrectGrammar: function (middleWord, firstWord) {
+        var vowels = ["a", "e", "i", "o", "u"];
+        for (i = 0; i < vowels.length; i++) {
+          if (middleWord.charAt(0) == vowels[i]) {
+            return firstWord + "n";
+          }
         }
-        return false;
-    },
+        return firstWord;
+      },
     init: function() {
         var moodArray = this.setMoodArray();
         var firstWord = start;
         var middleWord = moodArray[this.setWordIndex(moodArray)];
         var finalWord = end[this.setWordIndex(end)];
 
-        if (this.setCorrectGrammer(finalWord)) {
+        if (this.setCorrectGrammar(middleWord)) {
             firstWord += "n";
         }
 
