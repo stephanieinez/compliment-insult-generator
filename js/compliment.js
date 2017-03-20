@@ -1,4 +1,4 @@
-var Sentence = {
+var Compliment = {
 
     build: function (firstWord, middleWord, finalWord) {
         return firstWord + " " + middleWord + " " + finalWord;

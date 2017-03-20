@@ -2,11 +2,11 @@ var App = {
 
     start: function() {
         var moodArray = Mood.setArray();
-        var middleWord = moodArray[Sentence.setWordIndex(moodArray)];
-        var firstWord = Sentence.correctGrammer(middleWord, Model.start);
-        var finalWord = Model.end[Sentence.setWordIndex(Model.end)];
-        var sentence = Sentence.build(firstWord, middleWord, finalWord);
-        Sentence.render(sentence);
+        var middleWord = moodArray[Compliment.setWordIndex(moodArray)];
+        var firstWord = Compliment.correctGrammer(middleWord, Model.start);
+        var finalWord = Model.end[Compliment.setWordIndex(Model.end)];
+        var sentence = Compliment.build(firstWord, middleWord, finalWord);
+        Compliment.render(sentence);
     },
 
     init: function () {
